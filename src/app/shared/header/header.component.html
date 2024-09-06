@@ -1,0 +1,30 @@
+<header>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <nav>
+    <div class="logo">
+      <a routerLink="/">Arcadius Language</a>
+    </div>
+    <ul class="nav-links">
+     <!-- <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li> -->
+      <li><a routerLink="/index/games" routerLinkActive="active">Jogos</a></li>
+      <li><a routerLink="/index/promo" routerLinkActive="active">Promoções</a></li>
+      <li><a routerLink="/index/language" routerLinkActive="active">Idiomas</a></li>
+      <li><a routerLink="/index/about" routerLinkActive="active">Sobre</a></li>
+    </ul>
+    <div class="auth-actions">
+      <ng-container *ngIf="isLoggedIn; else loginRegister">
+        <button (click)="logout()" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </ng-container>
+      <ng-template #loginRegister>
+        <a routerLink="/login" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i> Entrar
+        </a>
+        <a routerLink="/register" class="register-btn">
+          <i class="fas fa-user-plus"></i> Registrar
+        </a>
+      </ng-template>
+    </div>
+  </nav>
+</header>
