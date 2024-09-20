@@ -6,10 +6,10 @@
     </div>
     <ul class="nav-links">
      <!-- <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li> -->
-      <li><a routerLink="/index/games" routerLinkActive="active">Jogos</a></li>
-      <li><a routerLink="/index/promo" routerLinkActive="active">Promoções</a></li>
-      <li><a routerLink="/index/language" routerLinkActive="active">Idiomas</a></li>
-      <li><a routerLink="/index/about" routerLinkActive="active">Sobre</a></li>
+      <li><a routerLink="/index/games" (click)="speach('Jogos')" routerLinkActive="active">Jogos</a></li>
+      <li><a routerLink="/index/promo" (click)="speach('Promoções')" routerLinkActive="active">Promoções</a></li>
+      <li><a routerLink="/index/language" (click)="speach('Idiomas')" routerLinkActive="active">Idiomas</a></li>
+      <li><a routerLink="/index/about" (click)="speach('Sobre')" routerLinkActive="active">Sobre</a></li>
     </ul>
     <div class="auth-actions">
       <ng-container *ngIf="isLoggedIn; else loginRegister">

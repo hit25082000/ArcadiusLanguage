@@ -1,3 +1,4 @@
+import { AccessibilityService } from './../../core/services/accessibility.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule,RouterOutlet } from '@angular/router';
@@ -13,13 +14,20 @@ import { AuthService } from '../../auth/services/auth.service';
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private accessibilityService : AccessibilityService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.isLoggedIn = !!user;
     });
+
   }
+
+  speach(text : string) {
+    this.accessibilityService.speak(text);
+  }
+
+
 
   logout() {
     this.authService.logout();
