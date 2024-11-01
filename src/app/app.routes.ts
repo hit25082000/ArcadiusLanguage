@@ -7,10 +7,32 @@ import { AboutComponent } from './pages/about/about.component';
 import { PromoComponent } from './pages/promo/promo.component';
 import { GamesComponent } from './pages/games/games.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminComponent } from './pages/admin/admin.component';
+import { GameManagementComponent } from './features/game-management/game-management.component';
+import { LanguageManagementComponent } from './features/language-management/language-management.component';
+import { AdminGuard } from './auth/guards/admin.guard';
 
 export const routes: Routes = [
   {path: '',
     component: MainComponent},
+    { path: 'admin', component: AdminComponent,
+      canActivate: [AuthGuard, AdminGuard],
+      children: [
+        {
+          path: '',
+          redirectTo: 'games-management',
+          pathMatch: 'full'
+        },
+        {
+          path: 'games-management',
+          component: GameManagementComponent,
+        },
+        {
+          path: 'language-management',
+          component: LanguageManagementComponent,
+        },
+      ]
+     },
     {path: 'index',
       component: MainComponent,
     children: [
@@ -38,6 +60,5 @@ export const routes: Routes = [
       component: LoginComponent},
     {path: 'register',
       component: RegisterComponent},
-  //{path: 'unauthorized', component: UnauthorizedComponent},
-  //{path: '**', component: NotFoundComponent},
+  {path: '**', component: LoginComponent},
 ];

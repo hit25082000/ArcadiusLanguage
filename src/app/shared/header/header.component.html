@@ -5,14 +5,18 @@
       <a routerLink="/">Arcadius Language</a>
     </div>
     <ul class="nav-links">
-     <!-- <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li> -->
       <li><a routerLink="/index/games" (click)="speach('Jogos')" routerLinkActive="active">Jogos</a></li>
       <li><a routerLink="/index/promo" (click)="speach('Promoções')" routerLinkActive="active">Promoções</a></li>
       <li><a routerLink="/index/language" (click)="speach('Idiomas')" routerLinkActive="active">Idiomas</a></li>
       <li><a routerLink="/index/about" (click)="speach('Sobre')" routerLinkActive="active">Sobre</a></li>
+      <li *ngIf="isAdmin$ | async">
+        <a routerLink="/admin" (click)="speach('Administração')" routerLinkActive="active">
+          <i class="fas fa-cog"></i> Admin
+        </a>
+      </li>
     </ul>
     <div class="auth-actions">
-      <ng-container *ngIf="isLoggedIn; else loginRegister">
+      <ng-container *ngIf="isLoggedIn$ | async; else loginRegister">
         <button (click)="logout()" class="logout-btn">
           <i class="fas fa-sign-out-alt"></i> Sair
         </button>

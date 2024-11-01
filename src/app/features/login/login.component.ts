@@ -3,6 +3,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -36,8 +37,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.f['email'].value, this.f['password'].value)
       .then(() => {
-        console.log('Login bem-sucedido');
-        this.router.navigate(['/index/games']);
+        this.authService.isAdmin$.pipe(take(1)).subscribe(isAdmin => {
+          if (isAdmin) {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/index/games']);
+          }
+        });
       })
       .catch(error => console.error('Erro no login', error));
   }

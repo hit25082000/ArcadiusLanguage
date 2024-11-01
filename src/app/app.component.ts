@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { MockDataInsertion } from './core/services/mock-data.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './auth/services/auth.service';
 import { Router } from '@angular/router';
@@ -13,8 +14,11 @@ import { SpeechToggleComponent } from './features/speech-toggle/speech-toggle.co
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent {
-  constructor(private auth: AuthService, private router: Router) {
+export class AppComponent implements OnInit {
+  mock = inject(MockDataInsertion)
+  constructor(private auth: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    //this.mock.insertMockData();
   }
 }

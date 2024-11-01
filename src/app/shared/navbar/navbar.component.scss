@@ -1,0 +1,22 @@
+nav {
+  background-color: #1e1e1e;
+  padding: 1rem;
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+
+    li {
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s;
+        cursor: pointer;
+        &:hover {
+          color: #1db954;
+        }
+      }
+    }
+  }
+}

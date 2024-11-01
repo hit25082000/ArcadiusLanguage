@@ -1,57 +1,39 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, deleteUser, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithCredential, signInWithCustomToken, signInWithEmailAndPassword, updateCurrentUser, updateEmail, updatePassword, updateProfile, User, user } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private auth: Auth = inject(Auth);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.isAdminSubject.asObservable();
   user$ = user(this.auth);
-  userSubscription: Subscription;
+  isLoggedIn$: Observable<boolean>;
 
   constructor() {
-    this.userSubscription = this.user$.subscribe((aUser: any | null) => {
-     console.log(aUser);
-    })
+    this.isLoggedIn$ = this.user$.pipe(map(user => !!user));
+    this.user$.subscribe(user => this.checkAdminStatus(user?.email));
   }
 
-  getCurrentUser(){
+  async login(email: string, password: string): Promise<void> {
+    await signInWithEmailAndPassword(this.auth, email, password);
+  }
+
+  async register(email: string, password: string): Promise<void> {
+    await createUserWithEmailAndPassword(this.auth, email, password);
+  }
+
+  async logout(): Promise<void> {
+    await signOut(this.auth);
+  }
+
+  private checkAdminStatus(email: string | null | undefined): void {
+    this.isAdminSubject.next(email?.toLowerCase() === 'admin@admin.com');
+  }
+
+  getCurrentUser() {
     return this.auth.currentUser;
-  }
-
-  async register(email : string,password : string){
-    var userCredential = await createUserWithEmailAndPassword(this.auth, email, password)
-
-    return sendEmailVerification(userCredential.user)
-  }
-
-  login(email : string,password : string){
-    return signInWithEmailAndPassword(this.auth,email, password);
-  }
-
-  logout(){
-    this.auth.signOut()
-  }
-
-  passwordReset(email : string){
-    sendPasswordResetEmail(this.auth, email)
-    .then(() => {
-      // Password reset email sent!
-      // ..
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.auth.currentUser;
-  }
-
-  ngOnDestroy() {
-    this.auth.signOut()
   }
 }

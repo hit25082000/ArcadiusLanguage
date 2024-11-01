@@ -2,78 +2,12 @@
   <h1>Catálogo de Línguas: Curiosidades Culturais e Referências em Jogos</h1>
 
   <div class="language-list">
-    <div class="language-card">
-      <h2>Inglês</h2>
-      <img src="assets/images/english-flag.jpg" alt="Bandeira do Reino Unido">
+    <div *ngFor="let language of languages$ | async" class="language-card">
+      <h2>{{ language.name }}</h2>
+      <img [src]="language.flag" [alt]="'Bandeira de ' + language.name">
       <h3>Curiosidades Culturais:</h3>
       <ul>
-        <li>O chá das cinco é uma tradição britânica real.</li>
-        <li>"Queuing" (fazer fila) é considerado uma arte no Reino Unido.</li>
-      </ul>
-      <h3>Referências em Jogos:</h3>
-      <ul>
-        <li>Assassin's Creed Syndicate: Ambientado em Londres vitoriana.</li>
-        <li>Forza Horizon 4: Explora o cenário do Reino Unido.</li>
-      </ul>
-    </div>
-
-    <div class="language-card">
-      <h2>Japonês</h2>
-      <img src="assets/images/japanese-flag.jpg" alt="Bandeira do Japão">
-      <h3>Curiosidades Culturais:</h3>
-      <ul>
-        <li>É comum tirar os sapatos antes de entrar em casas e alguns restaurantes.</li>
-        <li>O conceito de "Ikigai" representa o propósito de vida.</li>
-      </ul>
-      <h3>Referências em Jogos:</h3>
-      <ul>
-        <li>Persona 5: Retrata a vida escolar e cultura pop japonesa.</li>
-        <li>Ghost of Tsushima: Ambientado no Japão feudal.</li>
-      </ul>
-    </div>
-
-    <div class="language-card">
-      <h2>Espanhol</h2>
-      <img src="assets/images/spanish-flag.jpg" alt="Bandeira da Espanha">
-      <h3>Curiosidades Culturais:</h3>
-      <ul>
-        <li>A sesta é uma tradição de descanso após o almoço.</li>
-        <li>As touradas são parte controversa da cultura espanhola.</li>
-      </ul>
-      <h3>Referências em Jogos:</h3>
-      <ul>
-        <li>Grim Fandango: Inspirado no Dia dos Mortos mexicano.</li>
-        <li>Uncharted 3: Parte do jogo se passa na Espanha.</li>
-      </ul>
-    </div>
-
-    <div class="language-card">
-      <h2>Alemão</h2>
-      <img src="assets/images/german-flag.jpg" alt="Bandeira da Alemanha">
-      <h3>Curiosidades Culturais:</h3>
-      <ul>
-        <li>O Oktoberfest é a maior festa popular do mundo.</li>
-        <li>A pontualidade é altamente valorizada na cultura alemã.</li>
-      </ul>
-      <h3>Referências em Jogos:</h3>
-      <ul>
-        <li>Kingdom Come: Deliverance: Ambientado na Boêmia medieval.</li>
-        <li>Euro Truck Simulator 2: Inclui estradas e cidades alemãs.</li>
-      </ul>
-    </div>
-
-    <div class="language-card">
-      <h2>Mandarim</h2>
-      <img src="assets/images/chinese-flag.jpg" alt="Bandeira da China">
-      <h3>Curiosidades Culturais:</h3>
-      <ul>
-        <li>O número 4 é considerado de má sorte devido à sua pronúncia semelhante à palavra "morte".</li>
-        <li>O Ano Novo Chinês é a festa mais importante do calendário chinês.</li>
-      </ul>
-      <h3>Referências em Jogos:</h3>
-      <ul>
-        <li>Shenmue: Ambientado em Hong Kong, com elementos da cultura chinesa.</li>
-        <li>Sleeping Dogs: Retrata a vida em Hong Kong moderna.</li>
+        <li *ngFor="let curiosity of language.culturalCuriosities">{{ curiosity }}</li>
       </ul>
     </div>
   </div>
