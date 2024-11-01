@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
+import { inject, Injectable, signal } from '@angular/core';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
@@ -11,10 +11,15 @@ export class AuthService {
   isAdmin$ = this.isAdminSubject.asObservable();
   user$ = user(this.auth);
   isLoggedIn$: Observable<boolean>;
+  currentUser = signal<User | undefined>(undefined)
 
   constructor() {
     this.isLoggedIn$ = this.user$.pipe(map(user => !!user));
     this.user$.subscribe(user => this.checkAdminStatus(user?.email));
+
+    this.user$.subscribe((user)=>{
+      this.currentUser.set(user ?? undefined)
+    })
   }
 
   async login(email: string, password: string): Promise<void> {

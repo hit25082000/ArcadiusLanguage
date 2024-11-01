@@ -22,11 +22,11 @@ import { TimestampToDatePipe } from '../../pipes/timestamp-to-date.pipe';
       <div class="reviews-list">
         <div class="review-item" *ngFor="let review of reviews$ | async">
           <div class="review-header">
-            <span class="user-name">{{ review.userName }}</span>
-            <span class="stars">
+            <div class="user-name">{{ review.userName }}</div>
+            <div class="stars">
               <span *ngFor="let star of [1,2,3,4,5]"
                     [class.active]="star <= review.rating">⭐</span>
-            </span>
+            </div>
             <span class="review-date">{{ review.createdAt | timestampToDate | date:'dd/MM/yyyy' }}</span>
           </div>
           <p class="comment">{{ review.comment }}</p>
@@ -66,9 +66,9 @@ import { TimestampToDatePipe } from '../../pipes/timestamp-to-date.pipe';
     }
     .review-header {
       display: flex;
-      align-items: center;
       gap: 15px;
       margin-bottom: 10px;
+      flex-direction: column;
     }
     .user-name {
       font-weight: bold;

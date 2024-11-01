@@ -204,7 +204,7 @@ export class ReviewModalComponent {
 
       const review = {
         userId: user.uid,
-        userName: user.displayName || 'Anônimo',
+        userName: user.email || 'Anônimo',
         gameId: this.modalGameId(),
         rating: this.reviewForm().value.rating,
         comment: this.reviewForm().value.comment,
