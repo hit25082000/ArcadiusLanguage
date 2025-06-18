@@ -1,11 +1,21 @@
+// This file contains the Firebase configuration for the Arcadius Language project.
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 export const environment = {
   production: false,
-  firebaseConfig: {
-    apiKey: "AIzaSyDAisk3qnShJbdyHUUT0627BXztkS3QkMI",
-    authDomain: "projeto-integrador-cf3b5.firebaseapp.com",
-    projectId: "projeto-integrador-cf3b5",
-    storageBucket: "projeto-integrador-cf3b5.appspot.com",
-    messagingSenderId: "461519297399",
-    appId: "1:461519297399:web:fe51fb13788ff1ca0d5f72"
+  firebase: {
+  apiKey: "AIzaSyChWmWbcDgu_NnV6_yv2ei1IEZintfMHto",
+  authDomain: "arcadius-language-8e1fa.firebaseapp.com",
+  projectId: "arcadius-language-8e1fa",
+  storageBucket: "arcadius-language-8e1fa.appspot.com",
+  messagingSenderId: "645155703084",
+  appId: "1:645155703084:web:e7f4a60e63fd7752264489",
+  measurementId: "G-NXTPVKGQS2"
   }
 };
+
+const app = initializeApp(environment.firebase);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
